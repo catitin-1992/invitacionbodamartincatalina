@@ -5,22 +5,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cata & Tincho · 19.12.2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant:ital,wght@1,300;1,400&family=DM+Mono:wght@300;400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Cormorant:ital,wght@1,300;1,400&family=DM+Mono:wght@300;400&family=Jost:wght@200;300;400&family=Great+Vibes&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --peanut:   #C5DEDA;
-  --cream:    #F2F8F7;
-  --chalk:    #E8F4F2;
-  --neutral:  #D0E8E5;
-  --wbeige:   #F2F8F7;
-  --peach:    #E8F4F2;
-  --bark:     #7BBDB8;
-  --deep:     #2E4A48;
-  --night:    #4DA894;
-  --text:     #2E4A48;
-  --textm:    #4A7A78;
-  --texts:    #7BBDB8;
-  --white:    #FDFAF6;
+  --peanut:   #b7a99d;
+  --cream:    #dadadd;
+  --chalk:    #dadadd;
+  --neutral:  #c2b8b0;
+  --wbeige:   #d1cbc5;
+  --peach:    #dadadd;
+  --bark:     #b7a99d;
+  --deep:     #9b8c82;
+  --night:    #9b8c82;
+  --text:     #9b8c82;
+  --textm:    #b7a99d;
+  --texts:    #c2b8b0;
+  --white:    #dadadd;
 }
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
@@ -61,7 +61,7 @@ body::after{
 /* ══ ENVELOPE — ORIGAMI HEART ══ */
 #env-screen{
   position:fixed;inset:0;
-  background:#FDF6F0;
+  background:#d1cbc5;
   display:flex;flex-direction:column;
   align-items:center;justify-content:center;
   z-index:9995;overflow:hidden;
@@ -72,67 +72,123 @@ body::after{
 #env-screen::before{
   content:'';position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 60% 50% at 50% 50%, rgba(220,100,100,.06) 0%,transparent 70%),
+    radial-gradient(ellipse 60% 50% at 50% 50%, rgba(155,140,130,.08) 0%,transparent 70%),
     url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)' opacity='.03'/%3E%3C/svg%3E");
   pointer-events:none;
 }
 .env-line{
   position:absolute;height:1px;
-  background:linear-gradient(to right,transparent,rgba(180,80,80,.12),transparent);
+  background:linear-gradient(to right,transparent,rgba(155,140,130,.18),transparent);
   animation:lineDrift linear infinite;pointer-events:none;
 }
 @keyframes lineDrift{from{transform:translateX(-110%)}to{transform:translateX(110vw)}}
 
-/* ── HEART CANVAS WRAPPER ── */
-#heart-wrap{
-  position:relative;
-  width:360px;height:340px;
+/* ── VINTAGE ENVELOPE ── */
+#env-wrap{
   cursor:pointer;
-  margin-bottom:16px;
+  margin-bottom:24px;
+  perspective:600px;
+  perspective-origin:50% 0%;
   transition:filter .5s;
-  will-change:transform;
-  transform-origin:center center;
 }
-#heart-wrap:hover{
-  filter:drop-shadow(0 0 40px rgba(220,50,50,.5));
+#env-wrap:hover{
+  filter:drop-shadow(0 8px 28px rgba(100,80,70,.25));
 }
-#heart-canvas{display:block;}
-
-/* ── #heart-wrap scale is driven by JS during unfold ── */
+.vintage-envelope{
+  width:300px;height:210px;
+  position:relative;
+}
+.env-pocket{
+  position:absolute;inset:0;
+  background:#d1cbc5;
+  border-radius:2px;
+  box-shadow:0 4px 28px rgba(100,80,70,.18),0 1px 4px rgba(0,0,0,.08);
+}
+/* Side folds */
+.env-fold-left{
+  position:absolute;inset:0;
+  clip-path:polygon(0 0, 0 100%, 50% 56%);
+  background:#b7a99d;opacity:.75;
+}
+.env-fold-right{
+  position:absolute;inset:0;
+  clip-path:polygon(100% 0, 100% 100%, 50% 56%);
+  background:#c2b8b0;opacity:.8;
+}
+/* Bottom fold */
+.env-fold-bottom{
+  position:absolute;inset:0;
+  clip-path:polygon(0 100%, 100% 100%, 50% 56%);
+  background:#c2b8b0;opacity:.9;
+}
+/* Top flap */
+.env-top-flap{
+  position:absolute;
+  top:0;left:0;right:0;
+  height:0;
+  border-left:150px solid transparent;
+  border-right:150px solid transparent;
+  border-top:115px solid #d1cbc5;
+  transform-origin:50% 0%;
+  transition:transform .85s cubic-bezier(.4,0,.2,1);
+  z-index:6;
+  filter:drop-shadow(0 3px 6px rgba(100,80,70,.12));
+}
+.vintage-envelope.opening .env-top-flap{
+  transform:rotateX(185deg);
+}
+/* Wax seal */
+.env-seal{
+  position:absolute;
+  top:109px;left:50%;
+  transform:translate(-50%,-50%);
+  width:62px;height:62px;
+  background:#b7a99d;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  z-index:7;
+  box-shadow:0 2px 10px rgba(100,80,70,.28);
+  transition:opacity .4s;
+}
+.env-seal::before{
+  content:'';position:absolute;inset:4px;
+  border-radius:50%;
+  border:1px solid rgba(218,218,221,.45);
+}
+.vintage-envelope.opening .env-seal{
+  opacity:0;
+  transition:opacity .3s ease .2s;
+}
+.env-seal-text{
+  font-family:'Dancing Script','Great Vibes',cursive;
+  font-size:13px;font-weight:700;
+  color:#dadadd;
+  letter-spacing:.5px;
+  line-height:1;
+  text-align:center;
+}
 
 /* ── HINT ── */
 .env-hint{
   font-family:'DM Mono',monospace;
   font-size:8px;letter-spacing:6px;text-transform:uppercase;
-  color:rgba(180,80,80,.4);
+  color:rgba(100,80,70,.45);
   animation:breathe 3.5s ease-in-out infinite;
   margin-top:4px;
 }
-@keyframes breathe{0%,100%{opacity:.15}50%{opacity:.6}}
+@keyframes breathe{0%,100%{opacity:.2}50%{opacity:.7}}
 .env-names-hint{
-  font-family:'Italiana',serif;
-  font-size:clamp(36px,7vw,58px);
-  letter-spacing:6px;
-  color:#4A1A1A;
-  margin-bottom:32px;
+  font-family:'Cormorant',serif;
+  font-style:italic;
+  font-size:clamp(18px,3.5vw,26px);
+  letter-spacing:2px;
+  color:#6b5c54;
+  margin-bottom:36px;
   opacity:1;
-  text-shadow:0 2px 16px rgba(255,220,210,.4);
+  text-align:center;
+  text-shadow:0 2px 12px rgba(200,180,160,.3);
 }
 
-/* ══ PETALS ══ */
-#petals{position:fixed;inset:0;pointer-events:none;z-index:9980;overflow:hidden;}
-.petal{
-  position:absolute;top:-30px;
-  border-radius:40% 60% 70% 30%/40% 50% 60% 50%;
-  animation:pfall linear infinite;opacity:0;
-  will-change:transform;
-}
-@keyframes pfall{
-  0%{transform:translateY(0) rotate(0deg) translateX(0);opacity:0;}
-  8%{opacity:.75;}
-  92%{opacity:.35;}
-  100%{transform:translateY(110vh) rotate(480deg) translateX(90px);opacity:0;}
-}
 
 /* ══ MUSIC ══ */
 #mbtn{
@@ -235,7 +291,7 @@ nav.stuck .nav-links a:hover{color:var(--bark);}
 .hi:nth-child(5){animation-delay:1.05s}
 .hi:nth-child(6){animation-delay:1.2s}
 @keyframes sup{to{opacity:1;transform:none;}}
-.h-eye{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:6px;text-transform:uppercase;color:var(--peach);display:block;margin-bottom:24px;}
+.h-eye{font-family:'Great Vibes','Cormorant',serif;font-style:italic;font-size:clamp(28px,5vw,44px);letter-spacing:2px;text-transform:none;color:rgba(218,218,221,.92);display:block;margin-bottom:24px;}
 .h-names{
   font-family:'Italiana',serif;
   font-size:clamp(74px,18vw,158px);
@@ -478,41 +534,6 @@ nav.stuck .nav-links a:hover{color:var(--bark);}
 .ok-msg{font-size:15px;color:var(--textm);line-height:1.8;}
 .ok-sig{margin-top:24px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:4px;text-transform:uppercase;color:var(--peanut);}
 
-/* ══ GIFTS ══ */
-#gifts{background:var(--chalk);}
-.g-quote{font-family:'Cormorant',serif;font-style:italic;font-size:clamp(18px,3vw,26px);color:var(--deep);text-align:center;max-width:500px;margin:0 auto 56px;line-height:1.7;}
-.g-card{
-  max-width:440px;margin:0 auto;
-  background:var(--white);padding:48px 42px;
-  border-radius:2px;border-top:2px solid var(--peanut);
-  box-shadow:0 4px 60px rgba(30,56,53,.08);
-  transition:transform .5s cubic-bezier(.4,0,.2,1),box-shadow .5s;
-  position:relative;overflow:hidden;
-}
-.g-card::before{
-  content:'🇦🇷';position:absolute;top:-10px;right:20px;
-  font-size:48px;opacity:.05;transform:rotate(8deg);
-}
-.g-card:hover{transform:translateY(-8px);box-shadow:0 24px 80px rgba(30,56,53,.15);}
-.g-ctry{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:4px;text-transform:uppercase;color:var(--bark);margin-bottom:28px;display:block;}
-.g-flag{font-size:30px;display:block;margin-bottom:8px;}
-.gf{margin-bottom:18px;}
-.gfl{font-family:'DM Mono',monospace;font-size:8px;letter-spacing:3px;text-transform:uppercase;color:var(--texts);display:block;margin-bottom:4px;}
-.gfv{font-family:'Cormorant',serif;font-style:italic;font-size:20px;color:var(--deep);}
-.cp-btn{
-  width:100%;padding:14px;margin-top:20px;
-  background:transparent;border:1px solid var(--peanut);
-  color:var(--bark);
-  font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;
-  cursor:pointer;border-radius:1px;
-  transition:all .35s;position:relative;overflow:hidden;
-}
-.cp-btn::before{content:'';position:absolute;inset:0;background:var(--peanut);transform:scaleX(0);transform-origin:left;transition:transform .35s ease;z-index:0;}
-.cp-btn>span{position:relative;z-index:1;}
-.cp-btn:hover::before{transform:scaleX(1);}
-.cp-btn:hover{color:white;border-color:var(--peanut);}
-.cp-btn.ok{background:var(--deep);border-color:var(--deep);color:var(--cream);}
-.cp-btn.ok::before{display:none;}
 
 /* ══ FOOTER ══ */
 footer{background:var(--night);padding:100px 32px 52px;text-align:center;position:relative;overflow:hidden;}
@@ -542,7 +563,7 @@ footer::before{
 .adm-pw:focus{border-color:var(--peanut);}
 .adm-go{padding:15px 32px;background:var(--deep);color:white;border:none;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;cursor:pointer;border-radius:1px;transition:background .3s;}
 .adm-go:hover{background:var(--bark);}
-.adm-err{color:#8B4040;font-size:12px;margin-top:14px;}
+.adm-err{color:#9b8c82;font-size:12px;margin-top:14px;}
 .adm-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:2px;background:var(--peanut);}
 .sblk{background:var(--wbeige);padding:24px 16px;text-align:center;}
 .sn{font-family:'Italiana',serif;font-size:48px;color:var(--deep);display:block;line-height:1;}
@@ -576,8 +597,6 @@ tbody tr:hover{background:var(--wbeige);}
   <span class="ico-play"><svg viewBox="0 0 24 24"><path d="M12 3v10.55c-.59-.34-1.27-.55-2-.55-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4V7h4V3h-6z"/></svg></span>
   <span class="wv"><i></i><i></i><i></i><i></i></span>
 </button>
-<div id="petals"></div>
-
 <!-- ENVELOPE -->
 <div id="env-screen">
   <div class="env-line" style="width:60%;top:15%;animation-duration:22s;"></div>
@@ -585,10 +604,18 @@ tbody tr:hover{background:var(--wbeige);}
   <div class="env-line" style="width:70%;top:60%;animation-duration:24s;animation-delay:-14s;"></div>
   <div class="env-line" style="width:38%;top:78%;animation-duration:32s;animation-delay:-6s;opacity:.5;"></div>
 
-  <p class="env-names-hint">Cata &amp; Tincho · 19.12.2026</p>
+  <p class="env-names-hint">Esta invitación es exclusiva para ti</p>
 
-  <div id="heart-wrap" onclick="openEnv()">
-    <canvas id="heart-canvas" width="360" height="340"></canvas>
+  <div id="env-wrap" onclick="openEnv()">
+    <div class="vintage-envelope" id="vintage-env">
+      <div class="env-pocket">
+        <div class="env-fold-left"></div>
+        <div class="env-fold-right"></div>
+        <div class="env-fold-bottom"></div>
+        <div class="env-top-flap"></div>
+        <div class="env-seal"><span class="env-seal-text">C &amp; M</span></div>
+      </div>
+    </div>
   </div>
 
   <p class="env-hint">Tocá para abrir</p>
@@ -602,7 +629,6 @@ tbody tr:hover{background:var(--wbeige);}
     <ul class="nav-links">
       <li><a href="#info">El Día</a></li>
       <li><a href="#rsvp">Confirmar</a></li>
-      <li><a href="#gifts">Regalos</a></li>
     </ul>
   </nav>
 
@@ -611,7 +637,7 @@ tbody tr:hover{background:var(--wbeige);}
     <div class="hero-bg"></div>
     <div class="hero-ov"></div>
     <div class="hero-content">
-      <span class="h-eye hi">Con alegría los invitamos a celebrar</span>
+      <span class="h-eye hi">Nos casamos</span>
       <h1 class="h-names hi">Cata<span class="h-amp">&</span>Tincho</h1>
       <div class="h-meta hi">
         <span class="h-meta-txt">19 Diciembre 2026</span>
@@ -620,7 +646,6 @@ tbody tr:hover{background:var(--wbeige);}
         <div class="h-sep"></div>
         <span class="h-meta-txt">Mendoza</span>
       </div>
-      <p class="h-phrase hi">"Explorando el mundo nos encontró el amor"</p>
       <a href="#rsvp" class="h-cta hi">Confirmar Asistencia</a>
     </div>
     <div class="scroll-cue"><div class="scroll-line"></div><span>scroll</span></div>
@@ -724,18 +749,6 @@ tbody tr:hover{background:var(--wbeige);}
                 <label class="ro" onclick="pick(this,'asi','no')"><input type="radio" name="asi" value="no"><span>✗ No puedo ir</span></label>
               </div>
             </div>
-            <div class="fg"><label class="fl">¿Vas con acompañante?</label>
-              <div class="rg">
-                <label class="ro" onclick="pick(this,'ac','si')"><input type="radio" name="ac" value="si"><span>Sí</span></label>
-                <label class="ro" onclick="pick(this,'ac','no')"><input type="radio" name="ac" value="no"><span>No</span></label>
-              </div>
-            </div>
-            <div class="fg"><label class="fl">Cantidad de personas *</label>
-              <select class="fs" id="fpers" required>
-                <option value="">Seleccionar...</option>
-                <option>1</option><option>2</option><option>3</option><option>4</option><option value="5+">5 o más</option>
-              </select>
-            </div>
             <div class="fg"><label class="fl">¿Tenés alguna alergia?</label><input class="fi" id="fal" placeholder="Ej: nueces, gluten, mariscos..."></div>
             <div class="fg"><label class="fl">Preferencia alimentaria</label>
               <div class="rg">
@@ -746,7 +759,7 @@ tbody tr:hover{background:var(--wbeige);}
             </div>
             <div class="fg"><label class="fl">Teléfono (opcional)</label><input class="fi" type="tel" id="ftel" placeholder="+54 9 ..."></div>
             <button type="submit" class="btn-send"><span>Confirmar mi asistencia</span></button>
-            <p id="ferr" style="color:#8B4040;font-size:12px;text-align:center;margin-top:14px;display:none"></p>
+            <p id="ferr" style="color:#9b8c82;font-size:12px;text-align:center;margin-top:14px;display:none"></p>
           </form>
         </div>
         <div class="ok-wrap" id="rsvp-ok">
@@ -754,26 +767,6 @@ tbody tr:hover{background:var(--wbeige);}
           <h3 class="ok-ttl">¡Gracias!</h3>
           <p class="ok-msg">Estamos muy emocionados de compartir este día con vos.<br>¡Nos vemos en Mendoza!</p>
           <p class="ok-sig">— Cata & Tincho —</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- GIFTS -->
-  <section id="gifts" class="sec">
-    <div class="si">
-      <span class="stag rv">Mesa de Regalos</span>
-      <h2 class="sttl rv d1">Un gesto de tu corazón</h2>
-      <span class="srule rv d2"></span>
-      <p class="g-quote rv d3">"Tu presencia es nuestro mejor regalo.<br>Pero si deseás hacernos un obsequio,<br>acá encontrás cómo hacernos llegar tu cariño."</p>
-      <div class="rv d4">
-        <div class="g-card">
-          <span class="g-flag">🇦🇷</span>
-          <span class="g-ctry">Argentina · ARS / USD</span>
-          <div class="gf"><span class="gfl">Titular</span><span class="gfv">[ Nombre del titular ]</span></div>
-          <div class="gf"><span class="gfl">Alias</span><span class="gfv" id="alias-ar">[ alias.bancario ]</span></div>
-          <div class="gf"><span class="gfl">CBU</span><span class="gfv">[ 0000000000000000000000 ]</span></div>
-          <button class="cp-btn" onclick="doCopy('alias-ar',this)"><span>📋 Copiar Alias</span></button>
         </div>
       </div>
     </div>
@@ -807,7 +800,7 @@ tbody tr:hover{background:var(--wbeige);}
       <div class="adm-stats" id="adm-stats"></div>
       <div class="adm-tbl">
         <table>
-          <thead><tr><th>Nombre</th><th>Asiste</th><th>Personas</th><th>Acomp.</th><th>Dieta</th><th>Alergias</th><th>Tel.</th><th>Fecha</th></tr></thead>
+          <thead><tr><th>Nombre</th><th>Asiste</th><th>Dieta</th><th>Alergias</th><th>Tel.</th><th>Fecha</th></tr></thead>
           <tbody id="adm-tbody"></tbody>
         </table>
       </div>
@@ -829,335 +822,21 @@ const WED  = new Date('2026-12-19T19:00:00-03:00');
 // ══ EXPOSE TO WINDOW ══
 window.openEnv = function() {
   if(opened) return; opened = true;
-  window.startDisassemble && window.startDisassemble();
+  const env = document.getElementById('vintage-env');
+  if(env) env.classList.add('opening');
+  setTimeout(() => {
+    const screen = document.getElementById('env-screen');
+    screen.style.transition = 'opacity 0.9s ease-in';
+    screen.style.opacity = '0';
+    setTimeout(() => {
+      screen.classList.add('gone');
+      document.getElementById('main').classList.add('on');
+      document.querySelectorAll('.hi').forEach(el => el.classList.add('in'));
+      initParticles();
+    }, 900);
+  }, 950);
 };
 
-// ══════════════════════════════════════════════════
-// ORIGAMI HEART — faceted, agua palette
-// Disassembly: outside → inside, slow & elegant
-// ══════════════════════════════════════════════════
-(function() {
-  const canvas = document.getElementById('heart-canvas');
-  if(!canvas) return;
-  const ctx = canvas.getContext('2d');
-  const W = 400, H = 380;
-  canvas.width = W; canvas.height = H;
-  // Also update wrapper size
-  const hw = document.getElementById('heart-wrap');
-  if(hw){ hw.style.width='400px'; hw.style.height='380px'; }
-  const cx = W/2, cy = H/2 + 12;
-  const R = 125; // scale
-
-  // ── Rojo origami palette per facet (light→dark for 3D effect) ──
-  const C = {
-    hl:  '#FFCDD2', // highlight — lightest pink
-    l1:  '#EF9A9A',
-    l2:  '#E57373',
-    m1:  '#EF5350', // mid red
-    m2:  '#E53935',
-    m3:  '#C62828',
-    d1:  '#B71C1C', // dark
-    d2:  '#9B1818',
-    d3:  '#7B1212',
-    sh:  '#5A0A0A', // deep shadow
-  };
-
-  // ── FACETS: each is { pts (relative to cx,cy), color, layer }
-  // layer 0=outermost, 1=middle, 2=inner — controls disassembly order
-  const FACETS = [
-    // ── OUTER RING (layer 0 — first to unfold) ──
-    // Top-left outer triangle
-    { rel:[[-R*.68,-R*.28],[-R*.42,-R*.14],[-R*.65,-R*.0]], col:C.d2, layer:0 },
-    // Top-right outer triangle
-    { rel:[[ R*.68,-R*.28],[ R*.42,-R*.14],[ R*.65,-R*.0]], col:C.d2, layer:0 },
-    // Left outer flap
-    { rel:[[-R*.68,-R*.28],[-R*.28,-R*.76],[-R*.42,-R*.14]], col:C.d1, layer:0 },
-    // Right outer flap
-    { rel:[[ R*.68,-R*.28],[ R*.28,-R*.76],[ R*.42,-R*.14]], col:C.d1, layer:0 },
-    // Bottom-left outer
-    { rel:[[-R*.65,-R*.0],[-R*.42,-R*.14],[-R*.42, R*.14]], col:C.m3, layer:0 },
-    // Bottom-right outer
-    { rel:[[ R*.65,-R*.0],[ R*.42,-R*.14],[ R*.42, R*.14]], col:C.m3, layer:0 },
-    // Lower-left outer
-    { rel:[[-R*.42, R*.14],[-R*.65,-R*.0],[-R*.62, R*.38]], col:C.d3, layer:0 },
-    // Lower-right outer
-    { rel:[[ R*.42, R*.14],[ R*.65,-R*.0],[ R*.62, R*.38]], col:C.d3, layer:0 },
-    // Bottom outer left
-    { rel:[[-R*.62, R*.38],[-R*.28, R*.78],[-R*.28, R*.42]], col:C.sh, layer:0 },
-    // Bottom outer right
-    { rel:[[ R*.62, R*.38],[ R*.28, R*.78],[ R*.28, R*.42]], col:C.sh, layer:0 },
-
-    // ── MIDDLE RING (layer 1) ──
-    { rel:[[-R*.28,-R*.76],[-R*.0,-R*.60],[-R*.42,-R*.14]], col:C.m1, layer:1 },
-    { rel:[[ R*.28,-R*.76],[ R*.0,-R*.60],[ R*.42,-R*.14]], col:C.m1, layer:1 },
-    { rel:[[-R*.42,-R*.14],[-R*.0,-R*.60],[-R*.0, R*.0],[-R*.42, R*.14]], col:C.m2, layer:1 },
-    { rel:[[ R*.42,-R*.14],[ R*.0,-R*.60],[ R*.0, R*.0],[ R*.42, R*.14]], col:C.l2, layer:1 },
-    { rel:[[-R*.42, R*.14],[-R*.0, R*.0],[-R*.28, R*.42]], col:C.m2, layer:1 },
-    { rel:[[ R*.42, R*.14],[ R*.0, R*.0],[ R*.28, R*.42]], col:C.l2, layer:1 },
-    { rel:[[-R*.28, R*.42],[-R*.0, R*.0],[ R*.0, R*.78],[-R*.28, R*.78]], col:C.m1, layer:1 },
-    { rel:[[ R*.28, R*.42],[ R*.0, R*.0],[ R*.0, R*.78],[ R*.28, R*.78]], col:C.m2, layer:1 },
-
-    // ── INNER (layer 2 — last to unfold) ──
-    { rel:[[-R*.0,-R*.60],[ R*.0,-R*.60],[ R*.0, R*.0]], col:C.l1, layer:2 },
-    { rel:[[-R*.0, R*.0],[ R*.0, R*.78],[-R*.0, R*.0]], col:C.hl, layer:2 },
-    { rel:[[-R*.0, R*.0],[ R*.28, R*.42],[-R*.28, R*.42]], col:C.hl, layer:2 },
-  ];
-
-  // Convert to absolute coords + compute centroid + hinge (inner) edge
-  const facets = FACETS.map((f, i) => {
-    const pts = f.rel.map(([dx,dy]) => [cx+dx, cy+dy]);
-    const ox = pts.reduce((s,p)=>s+p[0],0)/pts.length;
-    const oy = pts.reduce((s,p)=>s+p[1],0)/pts.length;
-    // Find inner edge: edge whose midpoint is closest to heart center (this is the hinge)
-    let minDist = Infinity, innerEdgeIdx = 0;
-    for (let j = 0; j < pts.length; j++) {
-      const a = pts[j], b = pts[(j+1) % pts.length];
-      const d = Math.hypot((a[0]+b[0])/2 - cx, (a[1]+b[1])/2 - cy);
-      if (d < minDist) { minDist = d; innerEdgeIdx = j; }
-    }
-    const innerA = pts[innerEdgeIdx];
-    const innerB = pts[(innerEdgeIdx + 1) % pts.length];
-    return {
-      pts, ox, oy, col: f.col, layer: f.layer,
-      innerA, innerB,
-      // stagger: outer first (layer 0), then middle, then inner
-      delay: f.layer * 450 + i * 45 + Math.random() * 60,
-    };
-  });
-
-  // ── Fold lines radiating from center ──
-  const FOLDS = [
-    [[cx,cy],[cx, cy-R*.60]],
-    [[cx,cy],[cx-R*.28, cy-R*.76]],
-    [[cx,cy],[cx+R*.28, cy-R*.76]],
-    [[cx,cy],[cx-R*.42, cy-R*.14]],
-    [[cx,cy],[cx+R*.42, cy-R*.14]],
-    [[cx,cy],[cx-R*.42, cy+R*.14]],
-    [[cx,cy],[cx+R*.42, cy+R*.14]],
-    [[cx,cy],[cx-R*.28, cy+R*.42]],
-    [[cx,cy],[cx+R*.28, cy+R*.42]],
-    [[cx,cy],[cx, cy+R*.78]],
-    [[cx,cy],[cx-R*.65, cy-R*.0]],
-    [[cx,cy],[cx+R*.65, cy-R*.0]],
-  ];
-
-  // ── Paper grain ──
-  const gc = document.createElement('canvas');
-  gc.width = gc.height = 128;
-  const gx = gc.getContext('2d');
-  for(let i=0;i<4000;i++){
-    gx.fillStyle=`rgba(0,0,0,${Math.random()*.05})`;
-    gx.fillRect(Math.random()*128,Math.random()*128,1,1);
-  }
-  const grain = ctx.createPattern(gc,'repeat');
-
-  // ── Heart clip path ──
-  function heartClip(scale){
-    const s = scale||1;
-    ctx.beginPath();
-    ctx.moveTo(cx, cy-R*.60*s);
-    ctx.bezierCurveTo(cx-4*s, cy-R*.84*s, cx-R*.70*s, cy-R*.78*s, cx-R*.70*s, cy-R*.28*s);
-    ctx.bezierCurveTo(cx-R*.70*s, cy+R*.14*s, cx-R*.18*s, cy+R*.52*s, cx, cy+R*.80*s);
-    ctx.bezierCurveTo(cx+R*.18*s, cy+R*.52*s, cx+R*.70*s, cy+R*.14*s, cx+R*.70*s, cy-R*.28*s);
-    ctx.bezierCurveTo(cx+R*.70*s, cy-R*.78*s, cx+4*s, cy-R*.84*s, cx, cy-R*.60*s);
-    ctx.closePath();
-  }
-
-  // ── Draw one facet ──
-  function drawFacet(f, tx, ty, rot, alpha, scale){
-    ctx.save();
-    ctx.globalAlpha = alpha;
-    ctx.translate(f.ox + tx, f.oy + ty);
-    ctx.rotate(rot);
-    ctx.scale(scale, scale);
-    ctx.translate(-f.ox, -f.oy);
-    ctx.beginPath();
-    ctx.moveTo(f.pts[0][0], f.pts[0][1]);
-    for(let i=1;i<f.pts.length;i++) ctx.lineTo(f.pts[i][0], f.pts[i][1]);
-    ctx.closePath();
-    ctx.fillStyle = f.col;
-    ctx.fill();
-    // grain
-    ctx.globalAlpha = alpha * .15;
-    ctx.fillStyle = grain;
-    ctx.fill();
-    // light edge
-    ctx.globalAlpha = alpha * .2;
-    ctx.strokeStyle = 'rgba(255,210,210,.7)';
-    ctx.lineWidth = .9;
-    ctx.stroke();
-    // shadow edge
-    ctx.globalAlpha = alpha * .12;
-    ctx.strokeStyle = 'rgba(80,0,0,.9)';
-    ctx.lineWidth = 1.1;
-    ctx.stroke();
-    ctx.restore();
-  }
-
-  // ── Draw one facet folding/unfolding around its inner hinge edge ──
-  function drawFoldingFacet(f, foldProg, alpha) {
-    // foldProg 0→1: 0 = original position, 1 = collapsed flat to hinge edge
-    const [ax, ay] = f.innerA, [bx, by] = f.innerB;
-    const edgeLen = Math.hypot(bx-ax, by-ay);
-    if (edgeLen < 0.001) return;
-    const eux = (bx-ax)/edgeLen, euy = (by-ay)/edgeLen;
-    // Perpendicular scale: sin(angle) — 0 at foldProg=0 (folded/edge-on) → 1 at foldProg=1 (fully open)
-    const perpScale = Math.sin(foldProg * Math.PI / 2);
-
-    const tPts = f.pts.map(([px, py]) => {
-      const rx = px-ax, ry = py-ay;
-      const along = rx*eux + ry*euy;
-      const perpX = rx - along*eux, perpY = ry - along*euy;
-      return [ax + along*eux + perpX*perpScale,
-              ay + along*euy + perpY*perpScale];
-    });
-
-    ctx.save();
-    ctx.globalAlpha = alpha;
-    ctx.beginPath();
-    ctx.moveTo(tPts[0][0], tPts[0][1]);
-    for (let i=1; i<tPts.length; i++) ctx.lineTo(tPts[i][0], tPts[i][1]);
-    ctx.closePath();
-    ctx.fillStyle = f.col;
-    ctx.fill();
-    ctx.globalAlpha = alpha * .15; ctx.fillStyle = grain; ctx.fill();
-    ctx.globalAlpha = alpha * .2;
-    ctx.strokeStyle = 'rgba(255,210,210,.7)'; ctx.lineWidth = .9; ctx.stroke();
-    ctx.globalAlpha = alpha * .12;
-    ctx.strokeStyle = 'rgba(80,0,0,.9)'; ctx.lineWidth = 1.1; ctx.stroke();
-    ctx.restore();
-  }
-
-  // ── State ──
-  let disStart = null, disActive = false, disDone = false;
-  let breatheT = 0, hoverAmt = 0, hoverTarget = 0;
-
-  hw.addEventListener('mouseenter', ()=>{ hoverTarget=1; });
-  hw.addEventListener('mouseleave', ()=>{ hoverTarget=0; });
-
-  // ── MAIN LOOP ──
-  function loop(ts){
-    ctx.clearRect(0,0,W,H);
-
-    if(disActive && !disDone){
-      if(!disStart) disStart = ts;
-      const elapsed = ts - disStart;
-
-      // ── Origami unfold: each facet folds flat toward its inner hinge edge ──
-      ctx.save();
-      ctx.shadowColor = 'rgba(120,0,0,.08)';
-      ctx.shadowBlur = 10;
-
-      facets.forEach(f => {
-        const lt = elapsed - f.delay;
-        if(lt < 0){ drawFoldingFacet(f, 0, 0); return; } // waiting: edge-on (invisible)
-        const prog = Math.min(lt / 1100, 1); // each facet unfolds over 1100ms
-        const e = 1 - Math.pow(1-prog, 2);   // ease-out quadratic
-        const alpha = prog < .15 ? prog / .15 : 1; // fade in during first 15%
-        drawFoldingFacet(f, e, alpha);
-      });
-      ctx.restore();
-
-      // Fold lines fade out in first 300ms
-      const foldA = Math.max(0, 1 - elapsed/300);
-      if(foldA > 0){
-        ctx.save();
-        ctx.globalAlpha = foldA * .5;
-        ctx.strokeStyle = 'rgba(120,0,0,.4)';
-        ctx.lineWidth = .7;
-        FOLDS.forEach(([a,b])=>{ ctx.beginPath(); ctx.moveTo(a[0],a[1]); ctx.lineTo(b[0],b[1]); ctx.stroke(); });
-        ctx.restore();
-      }
-
-      // Progressive scale-up: heart grows to fill viewport as it unfolds
-      const TOTAL_DUR = 2500; // ms for full unfold + scale
-      const scaleProgress = Math.min(elapsed / TOTAL_DUR, 1);
-      const scaleEase = 1 - Math.pow(1 - scaleProgress, 3); // cubic ease-out
-      const vpFill = Math.min(window.innerWidth, window.innerHeight) * 0.95 / Math.max(W, H);
-      const currentScale = 1 + scaleEase * (vpFill - 1);
-      hw.style.transform = `scale(${currentScale})`;
-
-      // Page reveal after scale completes
-      if (elapsed > TOTAL_DUR + 200 && !disDone) {
-        disDone = true;
-        const envEl = document.getElementById('env-screen');
-        envEl.style.transition = 'opacity 0.9s ease-in';
-        envEl.style.opacity = '0';
-        setTimeout(() => {
-          envEl.classList.add('gone');
-          document.getElementById('main').classList.add('on');
-          document.querySelectorAll('.hi').forEach(el => el.classList.add('in'));
-          spawnFacetPetals(facets);
-          initParticles();
-        }, 900);
-      }
-
-    } else if(!disActive){
-      // ── IDLE: breathe + hover ──
-      breatheT += 0.016;
-      hoverAmt += (hoverTarget - hoverAmt) * 0.055;
-      const breathe = Math.sin(breatheT) * 0.007;
-
-      const breatheScale = 1 + breathe + hoverAmt*.018;
-      ctx.save();
-      ctx.shadowColor = `rgba(140,0,0,${.2 + hoverAmt*.15})`;
-      ctx.shadowBlur = 28 + hoverAmt * 22;
-      ctx.shadowOffsetY = 8;
-      heartClip(breatheScale);
-      ctx.clip();
-      // Fill base color first — covers any inter-facet gaps
-      ctx.fillStyle = C.m2;
-      ctx.fillRect(0, 0, W, H);
-      facets.forEach(f => drawFacet(f,0,0,0,1,1));
-      ctx.restore();
-
-      // Fold lines
-      ctx.save();
-      ctx.globalAlpha = .45 + hoverAmt*.2;
-      ctx.strokeStyle = 'rgba(120,0,0,.35)';
-      ctx.lineWidth = .7;
-      FOLDS.forEach(([a,b])=>{ ctx.beginPath(); ctx.moveTo(a[0],a[1]); ctx.lineTo(b[0],b[1]); ctx.stroke(); });
-      ctx.restore();
-
-      // C·T
-      ctx.save();
-      ctx.globalAlpha = .4 + hoverAmt*.15;
-      ctx.font = "italic 16px 'Cormorant',Georgia,serif";
-      ctx.fillStyle = 'rgba(100,0,0,.7)';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('C · T', cx, cy);
-      ctx.restore();
-    }
-
-    requestAnimationFrame(loop);
-  }
-
-  window.startDisassemble = function(){ disActive = true; };
-  requestAnimationFrame(loop);
-})();
-
-// ── Facet pieces become petals ──
-function spawnFacetPetals(facets) {
-  const c = document.getElementById('petals');
-  const cols = ['#C5DEDA','#E8F4F2','#B8D4D0','#A8CCCA','#D0E8E5','#F2F8F7'];
-  facets.forEach((f, i) => {
-    const p = document.createElement('div');
-    p.className = 'petal';
-    const s = Math.random()*13+7;
-    const sx = Math.max(0, Math.min(window.innerWidth-20, f.ox + (f.ux||0)));
-    p.style.cssText = `left:${sx}px;width:${s}px;height:${s*1.6}px;background:${cols[i%cols.length]};animation-duration:${Math.random()*5+7}s;animation-delay:${Math.random()*600}ms;top:-30px;`;
-    c.appendChild(p);
-    p.addEventListener('animationiteration',()=>{ p.style.left=Math.random()*100+'%'; });
-  });
-  for(let i=0;i<16;i++){
-    const p=document.createElement('div'); p.className='petal';
-    const s=Math.random()*10+5;
-    p.style.cssText=`left:${Math.random()*100}%;width:${s}px;height:${s*1.5}px;background:${cols[Math.floor(Math.random()*cols.length)]};animation-duration:${Math.random()*6+6}s;animation-delay:${i*150+300}ms;top:-30px;`;
-    c.appendChild(p);
-    p.addEventListener('animationiteration',()=>{ p.style.left=Math.random()*100+'%'; });
-  }
-}
 
 // ══ CURSOR ══
 const cur = document.getElementById('cur');
@@ -1185,7 +864,7 @@ function initParticles() {
   let H = canvas.height = window.innerHeight;
   window.addEventListener('resize', () => { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; });
 
-  const COLORS = ['#C5DEDA','#EEF5F4','#B8D8D4','#A8CCCA','#D8ECEB'];
+  const COLORS = ['#b7a99d','#c2b8b0','#d1cbc5','#9b8c82','#dadadd'];
   const pts = Array.from({length:55}, () => ({
     x: Math.random()*W, y: Math.random()*H,
     vx: (Math.random()-.5)*.4, vy: (Math.random()-.5)*.4,
@@ -1235,18 +914,6 @@ function initParticles() {
   draw();
 }
 
-// ══ PETALS ══
-const PC = ['#C5DEDA','#EEF5F4','#B8D8D4','#A8CCCA','#D8ECEB','#F8F9F7'];
-function spawnPetals() {
-  const c = document.getElementById('petals');
-  for(let i=0;i<22;i++) {
-    const p = document.createElement('div'); p.className = 'petal';
-    const s = Math.random()*10+5;
-    p.style.cssText = `left:${Math.random()*100}%;width:${s}px;height:${s*1.5}px;background:${PC[Math.floor(Math.random()*PC.length)]};animation-duration:${Math.random()*8+8}s;animation-delay:${i*260}ms;`;
-    c.appendChild(p);
-    p.addEventListener('animationiteration', () => { p.style.left = Math.random()*100+'%'; });
-  }
-}
 
 // ══ PARALLAX PHOTO BREAK ══
 window.addEventListener('scroll', () => {
@@ -1290,12 +957,10 @@ async function doSubmit(e) {
   const n=document.getElementById('fn').value.trim();
   const a=document.getElementById('fa').value.trim();
   const asi=document.querySelector('input[name="asi"]:checked')?.value;
-  const p=document.getElementById('fpers').value;
-  if(!n||!a||!asi||!p) { err.textContent='Por favor completá todos los campos obligatorios.'; err.style.display='block'; return; }
+  if(!n||!a||!asi) { err.textContent='Por favor completá todos los campos obligatorios.'; err.style.display='block'; return; }
   const btn=document.querySelector('.btn-send'); btn.querySelector('span').textContent='Enviando...'; btn.disabled=true;
   const data={
-    nombre:n+' '+a, asistencia:asi, personas:p,
-    acompanante:document.querySelector('input[name="ac"]:checked')?.value||'-',
+    nombre:n+' '+a, asistencia:asi,
     dieta:document.querySelector('input[name="diet"]:checked')?.value||'ninguna',
     alergias:document.getElementById('fal').value||'Ninguna',
     telefono:document.getElementById('ftel').value||'-',
@@ -1323,7 +988,7 @@ function loadAdm() {
     <div class="sblk"><span class="sn">${veg}</span><span class="sl">Veg/Vegano</span></div>
     <div class="sblk"><span class="sn">${al}</span><span class="sl">Con alergias</span></div>`;
   document.getElementById('adm-tbody').innerHTML=data.length
-    ?data.map(d=>`<tr><td>${d.nombre}</td><td style="color:${d.asistencia==='si'?'var(--bark)':'#8B4040'}">${d.asistencia==='si'?'✓ Sí':'✗ No'}</td><td>${d.personas}</td><td>${d.acompanante}</td><td>${d.dieta}</td><td>${d.alergias}</td><td>${d.telefono}</td><td>${d.fecha}</td></tr>`).join('')
+    ?data.map(d=>`<tr><td>${d.nombre}</td><td style="color:${d.asistencia==='si'?'var(--bark)':'#9b8c82'}">${d.asistencia==='si'?'✓ Sí':'✗ No'}</td><td>${d.dieta}</td><td>${d.alergias}</td><td>${d.telefono}</td><td>${d.fecha}</td></tr>`).join('')
     :'<tr><td colspan="8" style="text-align:center;padding:36px;color:var(--peanut)">Sin respuestas aún</td></tr>';
 }
 document.getElementById('adm').addEventListener('click', function(e) { if(e.target===this) closeAdm(); });
